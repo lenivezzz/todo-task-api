@@ -1,0 +1,32 @@
+language: php
+dist: trusty
+
+php:
+  - 7.3
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS todokeeper_test;'
+
+
+install:
+  - travis_retry composer self-update && composer --version
+  - travis_retry composer update --dev --prefer-dist --no-interaction
+
+before_script:
+  - php init --env=Development --overwrite=All
+  - php yii_test migrate --interactive=0
+  - php -S 127.0.0.1:8080 -t api/web > /dev/null 2>&1 &
+
+script:
+  - ./vendor/bin/phpcs
+  - ./vendor/bin/codecept build
+  - ./vendor/bin/codecept run -- -c api

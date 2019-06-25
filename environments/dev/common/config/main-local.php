@@ -1,13 +1,12 @@
 <?php
 
 use yii\db\Connection;
-use yii\swiftmailer\Mailer;
 
 return [
     'components' => [
         'db' => [
             'class' => Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => 'mysql:host=localhost;dbname=todo',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

@@ -2,8 +2,12 @@
     <h1 align="center">Task manager api</h1>
     <br>
 </p>
-
+<p>
+<img src="https://travis-ci.org/lenivezzz/todo-task-api.svg?branch=master" />
+</p>
+<p>
 API for manage task list.
+</p>
 
 
 ```
