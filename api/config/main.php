@@ -67,9 +67,9 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => require __DIR__ . '/routes.php',
         ],
         'eventDispatcher' => function () {
             $dispatcher = new EventDispatcher();
