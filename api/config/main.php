@@ -12,8 +12,6 @@ use api\extensions\auth\controllers\AuthController;
 use api\extensions\auth\UserIdentity;
 use api\extensions\profile\controllers\ProfileController;
 use common\components\EventDispatcher;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use yii\log\FileTarget;
 use yii\web\JsonResponseFormatter;
 use yii\web\JsonParser;
