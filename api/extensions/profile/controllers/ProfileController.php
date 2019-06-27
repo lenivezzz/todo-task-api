@@ -5,7 +5,6 @@ namespace api\extensions\profile\controllers;
 
 use api\models\ApiUser;
 use Yii;
-use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
 
@@ -21,17 +20,6 @@ class ProfileController extends Controller
         $behaviors['authenticator']['authMethods'] = [
             HttpBearerAuth::class
         ];
-
-        $behaviors['access'] = [
-            'class' => AccessControl::class,
-            'rules' => [
-                [
-                    'allow' => true,
-                    'roles' => ['@'],
-                ],
-            ],
-        ];
-
         return $behaviors;
     }
 
@@ -40,9 +28,9 @@ class ProfileController extends Controller
      */
     protected function verbs() : array
     {
-        return array_merge(parent::verbs(), [
-            'profile' => ['get'],
-        ]);
+        return [
+            'index' => ['get'],
+        ];
     }
 
     /**

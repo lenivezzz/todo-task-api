@@ -1,9 +1,11 @@
 <?php
 
+use api\events\handlers\UserConfirmedHandler;
 use api\extensions\auth\AuthInterface;
 use api\extensions\auth\controllers\LogoutController;
 use api\extensions\auth\controllers\RegistrationController;
 use api\extensions\auth\events\handlers\UserRegisteredHandler;
+use api\extensions\auth\events\UserConfirmed;
 use api\extensions\auth\events\UserRegistered;
 use api\extensions\auth\Registration;
 use api\extensions\auth\RegistrationInterface;
@@ -12,8 +14,6 @@ use api\extensions\auth\controllers\AuthController;
 use api\extensions\auth\UserIdentity;
 use api\extensions\profile\controllers\ProfileController;
 use common\components\EventDispatcher;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use yii\log\FileTarget;
 use yii\web\JsonResponseFormatter;
 use yii\web\JsonParser;
@@ -67,15 +67,19 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => require __DIR__ . '/routes.php',
         ],
         'eventDispatcher' => function () {
             $dispatcher = new EventDispatcher();
             $dispatcher->on(
                 UserRegistered::class,
                 [Yii::$container->get(UserRegisteredHandler::class), 'onUserRegistered']
+            );
+            $dispatcher->on(
+                UserConfirmed::class,
+                [Yii::$container->get(UserConfirmedHandler::class), 'onUserConfirmed']
             );
             return $dispatcher;
         },

@@ -8,8 +8,9 @@ use api\extensions\auth\exceptions\UserNotFoundException;
 use api\extensions\auth\Registration;
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
+use common\models\User;
 use Yii;
-use yii\base\Security;
+use yii\base\Exception;
 use yii\log\Logger;
 
 class RegistrationTest extends Unit
@@ -24,6 +25,9 @@ class RegistrationTest extends Unit
         ];
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRegister() : void
     {
         $registration = new Registration(Yii::$app->security, $this->createLogger());
@@ -46,6 +50,9 @@ class RegistrationTest extends Unit
         );
     }
 
+    /**
+     * @throws Exception
+     */
     public function testInvalidParams() : void
     {
         $logger = $this->createLogger();
@@ -59,6 +66,9 @@ class RegistrationTest extends Unit
         $registration->register([]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testIncorrectParams() : void
     {
         $logger = $this->createLogger();
@@ -80,14 +90,20 @@ class RegistrationTest extends Unit
         ]);
     }
 
-    public function testVerify() : void
+    public function testConfirm() : void
     {
         $registration = new Registration(
             Yii::$app->security,
             $this->createLogger()
         );
 
-        $registration->confirm('verificationtoken');
+        $token = 'verificationtoken';
+        $user = User::findOne([
+            'confirmation_token' => $token,
+        ]);
+
+        $confirmedUser = $registration->confirm($token);
+        $this->assertEquals($user->id, $confirmedUser->id);
 
         $this->expectException(UserNotFoundException::class);
         $registration->confirm('invalidtoken');
