@@ -15,6 +15,7 @@ interface RegistrationInterface
 
     /**
      * @param string $token
+     * @return ApiUser
      */
-    public function confirm(string $token) : void;
+    public function confirm(string $token) : ApiUser;
 }

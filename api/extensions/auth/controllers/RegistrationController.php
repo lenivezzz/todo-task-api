@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace api\extensions\auth\controllers;
 
+use api\extensions\auth\events\UserConfirmed;
 use api\extensions\auth\events\UserRegistered;
 use api\extensions\auth\exceptions\FailedToRegisterUserException;
 use api\extensions\auth\exceptions\FailedToVerifyUserException;
@@ -107,7 +108,8 @@ class RegistrationController extends Controller
             return $form;
         }
         try {
-            $this->registration->confirm($form->confirmationToken);
+            $confirmedUser = $this->registration->confirm($form->confirmationToken);
+            Yii::$app->eventDispatcher->dispatch(new UserConfirmed($confirmedUser));
         } catch (UserNotFoundException $e) {
             $form->addError('confirmationToken', 'Token not found or already expired');
             return $form;

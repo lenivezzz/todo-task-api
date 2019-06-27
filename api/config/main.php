@@ -1,9 +1,11 @@
 <?php
 
+use api\events\handlers\UserConfirmedHandler;
 use api\extensions\auth\AuthInterface;
 use api\extensions\auth\controllers\LogoutController;
 use api\extensions\auth\controllers\RegistrationController;
 use api\extensions\auth\events\handlers\UserRegisteredHandler;
+use api\extensions\auth\events\UserConfirmed;
 use api\extensions\auth\events\UserRegistered;
 use api\extensions\auth\Registration;
 use api\extensions\auth\RegistrationInterface;
@@ -74,6 +76,10 @@ return [
             $dispatcher->on(
                 UserRegistered::class,
                 [Yii::$container->get(UserRegisteredHandler::class), 'onUserRegistered']
+            );
+            $dispatcher->on(
+                UserConfirmed::class,
+                [Yii::$container->get(UserConfirmedHandler::class), 'onUserConfirmed']
             );
             return $dispatcher;
         },

@@ -63,9 +63,9 @@ class Registration extends BaseObject implements RegistrationInterface
     }
 
     /**
-     * @param string $token
+     * @inheritDoc
      */
-    public function confirm(string $token) : void
+    public function confirm(string $token) : ApiUser
     {
         $user = ApiUser::findOne([
             'status' => ApiUser::STATUS_UNVERIFIED,
@@ -88,6 +88,8 @@ class Registration extends BaseObject implements RegistrationInterface
             );
             throw new FailedToRegisterUserException();
         }
+
+        return $user;
     }
 
     /**

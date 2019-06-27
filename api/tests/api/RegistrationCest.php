@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace api\tests\api;
 
 use api\models\ApiUser;
+use api\models\project\Project;
 use api\tests\ApiTester;
 use common\fixtures\UserFixture;
+use common\models\User;
 
 class RegistrationCest
 {
@@ -93,10 +95,18 @@ class RegistrationCest
 
     public function testUserConfirmed(ApiTester $I) : void
     {
+        $token = 'verificationtoken';
+        /** @var User $user */
+        $user = User::findOne(['confirmation_token' => $token]);
         $I->sendPOST('/registration/confirm', [
-            'confirmationToken' => 'verificationtoken',
+            'confirmationToken' => $token,
         ]);
         $I->seeResponseCodeIs(204);
+
+        $I->canSeeRecord(Project::class, [
+            'user_id' => $user->id,
+            'is_default' => 1,
+        ]);
     }
 
     public function testConfirmationValidation(ApiTester $I) : void

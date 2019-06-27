@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace api\models\project;
 
+use api\exceptions\ProjectException;
 use api\models\ApiUser;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\log\Logger;
 
 /**
  * This is the model class for table "project".
@@ -26,6 +29,8 @@ class Project extends ActiveRecord
 {
     public const STATUS_ACTIVE = 1;
     public const STATUS_ARCHIVED = 2;
+
+    public const DEFAULT_PROJECT_TITLE = 'Incoming';
 
     /**
      * {@inheritdoc}
@@ -105,5 +110,31 @@ class Project extends ActiveRecord
             'is_default' => 'is_default',
             'status_id' => 'status_id',
         ];
+    }
+
+    /**
+     * @param ApiUser $user
+     * @return Project
+     */
+    public static function createDefaultForUser(ApiUser $user) : self
+    {
+        $model = new self();
+        $model->setAttributes([
+            'user_id' => $user->id,
+            'is_default' => 1,
+            'title' => self::DEFAULT_PROJECT_TITLE,
+        ]);
+        if (!$model->save()) {
+            Yii::getLogger()->log(
+                sprintf(
+                    'Failed to save user default project. Errors: %s',
+                    var_export($model->getErrors(), true)
+                ),
+                Logger::LEVEL_ERROR
+            );
+            throw new ProjectException('Failed to save default project');
+        }
+
+        return $model;
     }
 }
