@@ -65,7 +65,7 @@ class UserprojectsCest
     public function indexFilter(ApiTester $I) : void
     {
         $I->amBearerAuthenticated('token-correct');
-        $I->sendGET('/projects?s[statusId]=2');
+        $I->sendGET('/projects?s[status_id]=2');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson([
             [
@@ -94,7 +94,7 @@ class UserprojectsCest
     {
         $I->amBearerAuthenticated('token-correct');
         $I->sendGET('/projects/3');
-        $I->seeResponseCodeIs(404);
+        $I->seeResponseCodeIs(403);
         $I->sendGET('/projects/2');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson([
@@ -138,7 +138,7 @@ class UserprojectsCest
         $I->seeResponseCodeIs(404);
 
         $I->sendPATCH('/projects/1', [
-            'statusId' => 2,
+            'status_id' => 2,
         ]);
         $I->seeResponseCodeIs(403);
 
@@ -147,9 +147,23 @@ class UserprojectsCest
         ]);
         $I->seeResponseCodeIs(422);
 
+        $I->sendPATCH('/projects/4', [
+            'title' => 'New title'
+        ]);
+        $I->seeResponseCodeIs(403);
+
         $I->sendPATCH('/projects/2', [
             'title' => 'New title',
-            'statusId' => 1,
+        ]);
+        $I->seeResponseCodeIs(200);
+        $I->canSeeRecord(Project::class, [
+            'id' => 2,
+            'status_id' => 2,
+            'title' => 'New title',
+        ]);
+
+        $I->sendPATCH('/projects/2', [
+            'status_id' => 1,
         ]);
         $I->seeResponseCodeIs(200);
         $I->canSeeRecord(Project::class, [
@@ -164,19 +178,5 @@ class UserprojectsCest
         $I->amBearerAuthenticated('token-correct');
         $I->sendDELETE('/projects/2');
         $I->seeResponseCodeIs(404);
-    }
-
-    public function createOneMoreDefaultUnavailable(ApiTester $I) : void
-    {
-        $I->amBearerAuthenticated('token-correct');
-        $I->sendPOST('/projects', [
-            'title' => 'One more default',
-            'status_id' => 0,
-            'is_default' => 1,
-        ]);
-        $I->seeResponseCodeIs(422);
-        $I->seeResponseContainsJson([
-            'message' => 'User can have only one default project',
-        ]);
     }
 }

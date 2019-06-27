@@ -7,24 +7,30 @@ use yii\base\Model;
 
 class UpdateForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $title;
-    public $statusId;
+    /**
+     * @var int|null
+     */
+    public $status_id;
 
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-    }
-
+    /**
+     * @inheritDoc
+     */
     public function rules() : array
     {
         return [
             ['title', 'trim'],
-            ['title', 'required'],
-            ['statusId', 'in', 'range' => self::statusList()],
-            ['title', 'string', 'max' => 128],
+            ['status_id', 'in', 'range' => self::statusList()],
+            ['title', 'string', 'max' => 128, 'min' => 1],
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function statusList() : array
     {
         return [

@@ -3,70 +3,39 @@ declare(strict_types=1);
 
 namespace api\controllers;
 
+use api\models\project\CreateForm;
 use api\models\project\Project;
 use api\models\project\SearchForm;
 use api\models\project\UpdateForm;
 use api\models\project\UserProject;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\filters\auth\HttpBearerAuth;
-use yii\rest\ActiveController;
+use yii\helpers\ArrayHelper;
+use yii\helpers\ReplaceArrayValue;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\ServerErrorHttpException;
 
-class UserprojectsController extends ActiveController
+class UserprojectsController extends AbstractBearerAwareActiveController
 {
     public $modelClass = UserProject::class;
 
     /**
      * @inheritDoc
      */
-    public function behaviors() : array
+    public function actions() : array
     {
-        $behaviors =  parent::behaviors();
-
-        $behaviors['authenticator']['authMethods'] = [
-            HttpBearerAuth::class
-        ];
-        return $behaviors;
-    }
-
-    public function actions()
-    {
-        $actions = parent::actions();
-        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-        $actions['view']['findModel'] = [$this, 'findModel'];
-        unset($actions['update']);
-        return $actions;
-    }
-
-    /**
-     * @param $id
-     * @return Project|UpdateForm
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws ServerErrorHttpException
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->is_default === 1) {
-            throw new ForbiddenHttpException('You are not allowed to update default project.');
-        }
-        $form = new UpdateForm();
-        $form->load(Yii::$app->getRequest()->bodyParams, '');
-        if (!$form->validate()) {
-            return $form;
-        }
-        $model->setAttributes(['title' => $form->title]);
-        $form->statusId && $model->setAttribute('status_id', $form->statusId);
-        if ($model->save() === false && !$model->hasErrors()) {
-            throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
-        }
-
-        return $model;
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => [
+                'prepareDataProvider' => new ReplaceArrayValue([$this, 'prepareDataProvider']),
+            ],
+            'create' => [
+                'formClass' => CreateForm::class,
+            ],
+            'update' => [
+                'checkAccess' => new ReplaceArrayValue([$this, 'checkUpdateAccess']),
+                'formClass' => UpdateForm::class,
+            ]
+        ]);
     }
 
     /**
@@ -82,7 +51,7 @@ class UserprojectsController extends ActiveController
         }
 
         $query = Project::find()->where(['user_id' => Yii::$app->user->identity->getId()])
-            ->andFilterWhere(['status_id' => $form->statusId]);
+            ->andFilterWhere(['status_id' => $form->status_id]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -91,21 +60,36 @@ class UserprojectsController extends ActiveController
     }
 
     /**
-     * @param $id
-     * @return Project
-     * @throws NotFoundHttpException
+     * @param string $action
+     * @param Project|null $model
+     * @param array $params
+     * @return bool
+     * @throws ForbiddenHttpException
      */
-    public function findModel($id) : Project
+    public function checkAccess($action, $model = null, $params = []) : bool
     {
-        $model = Project::findOne([
-            'user_id' => Yii::$app->user->identity->getId(),
-            'id' => $id,
-        ]);
+        if ($model && $model->user_id !== Yii::$app->user->identity->getId()) {
+            throw new ForbiddenHttpException('You do not have access to do that.');
+        }
+        return true;
+    }
 
-        if (!$model) {
-            throw new NotFoundHttpException("Object not found: $id");
+    /**
+     * @param $action
+     * @param Project $model
+     * @param $params
+     * @return bool
+     * @throws ForbiddenHttpException
+     */
+    public function checkUpdateAccess($action, $model, $params = []) : bool
+    {
+        if (!$this->checkAccess($action, $model, $params = [])) {
+            return false;
         }
 
-        return $model;
+        if ($model->is_default === 1) {
+            throw new ForbiddenHttpException('You are not allowed to update default project.');
+        }
+        return true;
     }
 }
