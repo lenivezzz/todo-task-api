@@ -11,6 +11,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\log\Logger;
+use yii\validators\Validator;
 
 /**
  * This is the model class for table "project".
@@ -46,20 +47,62 @@ class Project extends ActiveRecord
     public function rules() : array
     {
         return [
+            ['title', 'trim'],
             [['title', 'user_id'], 'required'],
             ['status_id', 'default', 'value' => self::STATUS_ACTIVE],
             ['is_default', 'default', 'value' => 0],
             [['user_id', 'status_id', 'is_default'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 128],
             [
-                ['user_id'],
+                'is_default',
+                'validateChanges',
+                'skipOnError' => true,
+                'message' => 'Is not available to change attribute "is_default"',
+            ],
+            [
+                'user_id',
                 'exist',
                 'skipOnError' => true,
                 'targetClass' => ApiUser::class,
                 'targetAttribute' => ['user_id' => 'id'],
             ],
+            [
+                'is_default',
+                'validateUniqueDefault',
+                'skipOnError' => true,
+                'message' => 'User can have only one default project',
+            ],
         ];
+    }
+
+    /**
+     * @param $attribute
+     * @param $params
+     * @param Validator $validator
+     */
+    public function validateUniqueDefault($attribute, $params, Validator $validator) : void
+    {
+        if ($this->isNewRecord && (int) $this->is_default === 0) {
+            return;
+        }
+
+        $defaultProject = self::findOne([
+            'user_id' => $this->user_id,
+            'is_default' => 1,
+        ]);
+
+        if ($defaultProject && $defaultProject->id === $this->id) {
+            return;
+        }
+
+        $defaultProject && (int) $this->is_default === 1  && $this->addError($attribute, $validator->message);
+    }
+
+    public function validateChanges($attribute, $params, Validator $validator) : void
+    {
+        if (!$this->isNewRecord && $this->isAttributeChanged($attribute)) {
+            $this->addError($attribute, $validator->message);
+        }
     }
 
     /**

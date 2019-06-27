@@ -162,7 +162,21 @@ class UserprojectsCest
     public function deleteUnavailable(ApiTester $I) : void
     {
         $I->amBearerAuthenticated('token-correct');
-        $I->sendDELETE('/profiles/2');
+        $I->sendDELETE('/projects/2');
         $I->seeResponseCodeIs(404);
+    }
+
+    public function createOneMoreDefaultUnavailable(ApiTester $I) : void
+    {
+        $I->amBearerAuthenticated('token-correct');
+        $I->sendPOST('/projects', [
+            'title' => 'One more default',
+            'status_id' => 0,
+            'is_default' => 1,
+        ]);
+        $I->seeResponseCodeIs(422);
+        $I->seeResponseContainsJson([
+            'message' => 'User can have only one default project',
+        ]);
     }
 }
