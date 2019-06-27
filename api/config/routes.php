@@ -10,7 +10,7 @@ return [
     'profile' => 'profile/index',
     [
         'class' => UrlRule::class,
-        'controller' => ['projects' => 'userprojects'],
+        'controller' => 'projects',
         'only' => ['index', 'view', 'create', 'update'],
     ],
 ];

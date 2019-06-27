@@ -9,7 +9,7 @@ use api\models\project\Project;
 use api\tests\ApiTester;
 use common\fixtures\UserFixture;
 
-class UserprojectsCest
+class ProjectsCest
 {
     public function _before(ApiTester $I) : void
     {

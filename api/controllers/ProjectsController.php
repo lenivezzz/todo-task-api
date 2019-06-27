@@ -15,7 +15,7 @@ use yii\helpers\ReplaceArrayValue;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
 
-class UserprojectsController extends AbstractBearerAwareActiveController
+class ProjectsController extends AbstractBearerAwareActiveController
 {
     public $modelClass = UserProject::class;
 
