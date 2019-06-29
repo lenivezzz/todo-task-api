@@ -32,4 +32,12 @@ return [
         'created_at' => date('Y-m-d H:i:s', '1548675330'),
         'updated_at' => date('Y-m-d H:i:s', '1548675330'),
     ],
+    [
+        'title' => 'Project 4',
+        'user_id' => 1,
+        'status_id' => 1,
+        'is_default' => 0,
+        'created_at' => date('Y-m-d H:i:s', '1548675330'),
+        'updated_at' => date('Y-m-d H:i:s', '1548675330'),
+    ],
 ];

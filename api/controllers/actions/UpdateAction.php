@@ -13,7 +13,7 @@ use yii\web\ServerErrorHttpException;
 class UpdateAction extends \yii\rest\UpdateAction
 {
     /**
-     * @var Model|null
+     * @var string|Model|null
      */
     public $formClass;
 
@@ -37,7 +37,7 @@ class UpdateAction extends \yii\rest\UpdateAction
             /** @var Model $form */
             $form = is_callable($this->formClass) ? call_user_func($this->formClass) : new $this->formClass();
             $form->load($model->toArray(), '');
-            $form->load(Yii::$app->getRequest()->bodyParams, '');
+            $form->load(Yii::$app->getRequest()->getBodyParams(), '');
             if (!$form->validate()) {
                 return $form;
             }

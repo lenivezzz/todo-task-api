@@ -5,13 +5,14 @@ namespace api\controllers\actions;
 
 use Yii;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 
 class CreateAction extends \yii\rest\CreateAction
 {
     /**
-     * @var string
+     * @var string|Model|null
      */
     public $formClass;
 
@@ -21,7 +22,7 @@ class CreateAction extends \yii\rest\CreateAction
             call_user_func($this->checkAccess, $this->id);
         }
 
-        /* @var $model \yii\db\ActiveRecord */
+        /* @var $model ActiveRecord */
         $model = new $this->modelClass([
             'scenario' => $this->scenario,
         ]);

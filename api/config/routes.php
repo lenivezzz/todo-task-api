@@ -13,4 +13,13 @@ return [
         'controller' => 'projects',
         'only' => ['index', 'view', 'create', 'update'],
     ],
+    [
+        'class' => UrlRule::class,
+        'controller' => 'tasks',
+    ],
+    [
+        'class' => UrlRule::class,
+        'controller' => 'tasks',
+        'prefix' => 'projects/<projectId:\d+>',
+    ],
 ];
