@@ -53,6 +53,8 @@ class ProjectsCest
                 'status_id' => 2,
             ],
         ]);
+        $I->seeResponseJsonMatchesJsonPath('$.._links.self.href');
+        $I->seeResponseJsonMatchesJsonPath('$.._links.tasks.href');
         $I->dontSeeResponseContainsJson([
             [
                 'title' => 'Project 3',
@@ -102,6 +104,8 @@ class ProjectsCest
             'status_id' => 2,
             'is_default' => 0,
         ]);
+        $I->seeResponseJsonMatchesJsonPath('$_links.self.href');
+        $I->seeResponseJsonMatchesJsonPath('$_links.tasks.href');
     }
 
     public function create(ApiTester $I) : void
