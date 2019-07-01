@@ -10,7 +10,7 @@ class SearchForm extends Model
     /**
      * @var integer
      */
-    public $statusId;
+    public $status_id;
 
     /**
      * @inheritDoc
@@ -18,8 +18,8 @@ class SearchForm extends Model
     public function rules() : array
     {
         return [
-            ['statusId', 'trim'],
-            ['statusId', 'in', 'range' => self::statusList()],
+            ['status_id', 'trim'],
+            ['status_id', 'in', 'range' => self::statusList()],
         ];
     }
 

@@ -10,7 +10,16 @@ return [
     'profile' => 'profile/index',
     [
         'class' => UrlRule::class,
-        'controller' => ['projects' => 'userprojects'],
+        'controller' => 'projects',
         'only' => ['index', 'view', 'create', 'update'],
+    ],
+    [
+        'class' => UrlRule::class,
+        'controller' => 'tasks',
+    ],
+    [
+        'class' => UrlRule::class,
+        'controller' => 'tasks',
+        'prefix' => 'projects/<projectId:\d+>',
     ],
 ];

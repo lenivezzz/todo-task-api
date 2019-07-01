@@ -14,16 +14,16 @@ class SearchFormTest extends Unit
         $this->assertTrue($model->validate());
 
         $model = new SearchForm();
-        $model->statusId = 0;
+        $model->status_id = 0;
         $this->assertFalse($model->validate());
 
         $model = new SearchForm();
-        $model->statusId = 1;
+        $model->status_id = 1;
         $this->assertTrue($model->validate());
 
         $model = new SearchForm();
-        $model->statusId = ' 1';
+        $model->status_id = ' 1';
         $this->assertTrue($model->validate());
-        $this->assertEquals('1', $model->statusId);
+        $this->assertEquals('1', $model->status_id);
     }
 }
