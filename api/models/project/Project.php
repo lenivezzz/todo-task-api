@@ -10,8 +10,11 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\Url;
 use yii\log\Logger;
 use yii\validators\Validator;
+use yii\web\Link;
+use yii\web\Linkable;
 
 /**
  * This is the model class for table "project".
@@ -26,7 +29,7 @@ use yii\validators\Validator;
  *
  * @property ApiUser $user
  */
-class Project extends ActiveRecord
+class Project extends ActiveRecord implements Linkable
 {
     public const STATUS_ACTIVE = 1;
     public const STATUS_ARCHIVED = 2;
@@ -179,5 +182,16 @@ class Project extends ActiveRecord
         }
 
         return $model;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLinks() : array
+    {
+        return [
+            Link::REL_SELF => Url::to(['projects/view', 'id' => $this->id], true),
+            'tasks' => Url::to(['tasks/index', 'projectId' => (int) $this->id], true),
+        ];
     }
 }

@@ -60,6 +60,7 @@ class TasksCest
                 'project_id' => 5,
             ]
         ]);
+        $I->seeResponseJsonMatchesJsonPath('$.._links.self.href');
 
         $I->dontSeeResponseContainsJson([[
             'title' => 'Task 3',
@@ -138,6 +139,7 @@ class TasksCest
             'project_id' => 1,
             'status_id' => 1,
         ]);
+        $I->seeResponseJsonMatchesJsonPath('$_links.self.href');
 
         $I->sendGET('/projects/1/tasks/1');
         $I->seeResponseCodeIs(200);

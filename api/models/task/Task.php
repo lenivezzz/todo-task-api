@@ -9,6 +9,9 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\Url;
+use yii\web\Link;
+use yii\web\Linkable;
 
 /**
  * This is the model class for table "task".
@@ -24,7 +27,7 @@ use yii\db\Expression;
  * @property Project $project
  * @property ApiUser $user
  */
-class Task extends ActiveRecord
+class Task extends ActiveRecord implements Linkable
 {
     public const STATUS_ACTIVE = 1;
     public const STATUS_DONE = 2;
@@ -114,6 +117,16 @@ class Task extends ActiveRecord
             'status_id',
             'expires_at',
             'project_id',
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLinks()
+    {
+        return [
+            Link::REL_SELF => Url::to(['tasks/view', 'id' => $this->id], true),
         ];
     }
 }

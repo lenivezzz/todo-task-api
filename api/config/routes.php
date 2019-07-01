@@ -13,6 +13,8 @@ return [
         'controller' => 'projects',
         'only' => ['index', 'view', 'create', 'update'],
     ],
+    'GET projects/<projectId:\d+>/tasks' => 'tasks/index',
+    'POST projects/<projectId:\d+>/tasks' => 'tasks/create',
     [
         'class' => UrlRule::class,
         'controller' => 'tasks',
