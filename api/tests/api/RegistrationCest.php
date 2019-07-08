@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace api\tests\api;
 
+use api\extensions\auth\events\handlers\UserRegisteredHandlerFileLog;
 use api\models\ApiUser;
 use api\models\project\Project;
 use api\tests\ApiTester;
 use common\fixtures\UserFixture;
 use common\models\User;
+use Faker\Factory;
+use Yii;
 
 class RegistrationCest
 {
@@ -20,6 +23,7 @@ class RegistrationCest
             ],
         ]);
     }
+
     public function testUserSaved(ApiTester $I) : void
     {
         $I->sendPOST('/registration', [
@@ -121,5 +125,17 @@ class RegistrationCest
             'confirmationToken' => 'wrongconfirmationtoken',
         ]);
         $I->seeResponseCodeIs(422);
+    }
+
+    public function testUserRegisteredHandler(ApiTester $I) : void
+    {
+        $email = uniqid('', true) . Factory::create()->email;
+        $I->sendPOST('/registration', [
+            'username' => Factory::create()->unique()->word,
+            'email' => $email,
+            'password' => 'StrongPassword1',
+        ]);
+
+        $I->seeFileFound(Yii::getAlias('@runtime/event') . '/' . UserRegisteredHandlerFileLog::filename($email));
     }
 }

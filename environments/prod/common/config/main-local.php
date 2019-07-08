@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Connection;
+use yii\mail\MailerInterface;
 
 return [
     'components' => [
@@ -11,14 +12,24 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
-        'mailer' => [
-            'transport' => [
-                'host' => 'smtp.mailgun.org',
-                'username' => '',
-                'password' => '',
-                'port' => '587',
-                'encryption' => 'tls',
-            ]
+        'redis' => [
+            'hostname' => '',
+            'port' => '',
+        ],
+    ],
+    'container' => [
+        'definitions' => [
+            MailerInterface::class => [
+                'syncMailer' => [
+                    'transport' => [
+                        'host' => '',
+                        'username' => '',
+                        'password' => '',
+                        'port' => '587',
+                        'encryption' => 'tls',
+                    ],
+                ],
+            ],
         ],
     ],
 ];

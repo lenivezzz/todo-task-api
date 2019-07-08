@@ -7,24 +7,39 @@ use api\extensions\auth\events\UserRegistered;
 use RuntimeException;
 use Yii;
 use yii\base\BaseObject;
+use yii\mail\MailerInterface;
 
-class UserRegisteredHandler extends BaseObject
+class UserRegisteredHandler extends BaseObject implements UserRegisteredHandlerInterface
 {
     /**
-     * @param UserRegistered $event
+     * @var MailerInterface
+     */
+    private $mailer;
+
+    /**
+     * @param MailerInterface $mailer
+     * @param array $config
+     */
+    public function __construct(MailerInterface $mailer, $config = [])
+    {
+        parent::__construct($config);
+        $this->mailer = $mailer;
+    }
+
+    /**
+     * @inheritDoc
      */
     public function onUserRegistered(UserRegistered $event) : void
     {
-        $sent = Yii::$app->mailer->compose(
+        $message = $this->mailer->compose(
             ['html' => 'emailVerify-html'],
             ['user' => $event->getUser()]
         )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name.' robot'])
             ->setTo($event->getUser()->email)
-            ->setSubject('Account registration at '.Yii::$app->name)
-            ->send();
+            ->setSubject('Account registration at '.Yii::$app->name);
 
-        if (!$sent) {
+        if (!$this->mailer->send($message)) {
             throw new RuntimeException(sprintf('Failed to send email to %s', $event->getUser()->email));
         }
     }
