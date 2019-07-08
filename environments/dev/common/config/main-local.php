@@ -12,11 +12,24 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
+        'redis' => [
+            'hostname' => '',
+            'port' => '',
+        ],
     ],
     'container' => [
         'definitions' => [
             MailerInterface::class => [
-                'useFileTransport' => true,
+                'syncMailer' => [
+                    'useFileTransport' => true,
+                    'transport' => [
+                        'host' => '',
+                        'username' => '',
+                        'password' => '',
+                        'port' => '',
+                        'encryption' => '',
+                    ],
+                ],
             ],
         ],
     ],

@@ -31,16 +31,15 @@ class UserRegisteredHandler extends BaseObject implements UserRegisteredHandlerI
      */
     public function onUserRegistered(UserRegistered $event) : void
     {
-        $sent = $this->mailer->compose(
+        $message = $this->mailer->compose(
             ['html' => 'emailVerify-html'],
             ['user' => $event->getUser()]
         )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name.' robot'])
             ->setTo($event->getUser()->email)
-            ->setSubject('Account registration at '.Yii::$app->name)
-            ->send();
+            ->setSubject('Account registration at '.Yii::$app->name);
 
-        if (!$sent) {
+        if (!$this->mailer->send($message)) {
             throw new RuntimeException(sprintf('Failed to send email to %s', $event->getUser()->email));
         }
     }
