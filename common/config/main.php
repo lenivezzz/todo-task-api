@@ -1,6 +1,7 @@
 <?php
 
 use yii\caching\FileCache;
+use yii\mail\MailerInterface;
 use yii\swiftmailer\Mailer;
 
 return [
@@ -14,14 +15,21 @@ return [
         'cache' => [
             'class' => FileCache::class,
         ],
-        'mailer' => [
-            'class' => Mailer::class,
-            'transport' => [
-                'class' => Swift_SmtpTransport::class
+    ],
+    'container' => [
+        'definitions' => [
+            MailerInterface::class => [
+                'class' => Mailer::class,
+                'transport' => [
+                    'class' => Swift_SmtpTransport::class
+                ],
+                'viewPath' => '@common/mail',
+                'htmlLayout' => '@common/mail/layouts/html',
+                'textLayout' => '@common/mail/layouts/text',
             ],
-            'viewPath' => '@common/mail',
-            'htmlLayout' => '@common/mail/layouts/html',
-            'textLayout' => '@common/mail/layouts/text',
+        ],
+        'singletons' => [
+            // Dependency Injection Container singletons configuration
         ],
     ],
 ];

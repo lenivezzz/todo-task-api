@@ -7,15 +7,31 @@ use api\extensions\auth\events\UserRegistered;
 use RuntimeException;
 use Yii;
 use yii\base\BaseObject;
+use yii\mail\MailerInterface;
 
-class UserRegisteredHandler extends BaseObject
+class UserRegisteredHandler extends BaseObject implements UserRegisteredHandlerInterface
 {
     /**
-     * @param UserRegistered $event
+     * @var MailerInterface
+     */
+    private $mailer;
+
+    /**
+     * @param MailerInterface $mailer
+     * @param array $config
+     */
+    public function __construct(MailerInterface $mailer, $config = [])
+    {
+        parent::__construct($config);
+        $this->mailer = $mailer;
+    }
+
+    /**
+     * @inheritDoc
      */
     public function onUserRegistered(UserRegistered $event) : void
     {
-        $sent = Yii::$app->mailer->compose(
+        $sent = $this->mailer->compose(
             ['html' => 'emailVerify-html'],
             ['user' => $event->getUser()]
         )
