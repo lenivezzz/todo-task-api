@@ -1,0 +1,962 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;http&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <h1 style="color:#fff; text-align:center">Todo list</h1>
+        <div class="lang-selector">
+              <a href="#" data-language-name="http">http</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#entities" class="toc-h1 toc-link" data-title="Entities">Entities</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#projects" class="toc-h2 toc-link" data-title="Projects">Projects</a>
+                  </li>
+                  <li>
+                    <a href="#tasks" class="toc-h2 toc-link" data-title="Tasks">Tasks</a>
+                  </li>
+                  <li>
+                    <a href="#profiles" class="toc-h2 toc-link" data-title="Profiles">Profiles</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Todo list API! You can use our API to access Todo list API endpoints, which can get information on user projects and tasks.</p>
+<h1 id='authentication'>Authentication</h1>
+<p>To use API, you need username and password. Using this data you can get token.</p>
+
+<blockquote>
+<p>To authenticate, use this code:</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">POST http://127.0.0.1:8080/auth
+Content-Type: application/json
+Cache-Control: no-cache
+
+{ "username": "email@test.com", "password": "secretpassword"}
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xmc8kPNapdfbrEAUZ15VkSE8qQudJAVg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-27 20:57:53"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>POST /auth</code></p>
+
+<p>This endpoint retrieves user token.</p>
+<h4 id='parameters'>Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>Unique username</td>
+<td>+</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>Password</td>
+<td>+</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+You must use received <code>token</code> in request headers.
+<br/>
+<br/>
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</aside>
+<h1 id='entities'>Entities</h1><h2 id='projects'>Projects</h2><h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Project identifier.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Project title.</td>
+</tr>
+<tr>
+<td>is_default</td>
+<td>int</td>
+<td>Define is default project.</td>
+</tr>
+<tr>
+<td>status_id</td>
+<td>int</td>
+<td>Status of project (1 - Active, 2 - Archived)</td>
+</tr>
+</tbody></table>
+<h3 id='list'>List</h3>
+<blockquote>
+<p>List:</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/projects
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Incoming"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1/tasks"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Project 2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2/tasks"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p><code>GET /projects</code></p>
+
+<p>This endpoint retrieves all projects.</p>
+<h3 id='specific-project'>Specific Project</h3>
+<blockquote>
+<p>Specific Project</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/projects/1
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Incoming"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1/tasks"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET /projects/&lt;ID&gt;</code></p>
+<h4 id='url-parameters'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>int</td>
+<td>The ID of the project to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='create'>Create</h3><pre class="highlight http tab-http"><code><span class="err">POST http://127.0.0.1:8080/projects
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer 8fkqLShunkS-NfUKXDCgcDbhqufltSx_
+
+{"title":  "New project"}
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 201
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New project"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2/tasks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>POST /projects</code></p>
+<h4 id='parameters-2'>Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Project title</td>
+<td>+</td>
+</tr>
+</tbody></table>
+<h3 id='update'>Update</h3><pre class="highlight http tab-http"><code><span class="err">PATCH http://127.0.0.1:8080/projects/2
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer 8fkqLShunkS-NfUKXDCgcDbhqufltSx_
+
+{"title":  "Updated title", "status_id": 2}
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated title"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/2/tasks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>PATCH /projects/&lt;ID&gt;</code></p>
+<h4 id='url-parameters-2'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>int</td>
+<td>The ID of the project to update</td>
+</tr>
+</tbody></table>
+<h4 id='parameters-3'>Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Project title</td>
+</tr>
+<tr>
+<td>status_id</td>
+<td>int</td>
+<td>Project status (1 - Active, 2 - Archived)</td>
+</tr>
+</tbody></table>
+<h2 id='tasks'>Tasks</h2><h3 id='attributes-2'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Task identifier.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Task title.</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>datetime</td>
+<td>Task deadline.</td>
+</tr>
+<tr>
+<td>status_id</td>
+<td>int</td>
+<td>Task status (1 - Active, 2 - Done)</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>int</td>
+<td>Project identifier</td>
+</tr>
+<tr>
+<td>project</td>
+<td>object (Expandable)</td>
+<td>Project</td>
+</tr>
+</tbody></table>
+<h3 id='filters'>Filters</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Task identifier.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Task title.</td>
+</tr>
+<tr>
+<td>expires_at_start</td>
+<td>datetime</td>
+<td>Task deadline.</td>
+</tr>
+<tr>
+<td>expires_at_end</td>
+<td>datetime</td>
+<td>Task deadline.</td>
+</tr>
+</tbody></table>
+<pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/tasks
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated task"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New task"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/tasks?s[status_id]=2&amp;expand=project
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated task"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"project"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Incoming"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/projects/1/tasks"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p><code>GET /tasks</code></p>
+
+<p><code>GET /tasks?s[status_id]=2</code></p>
+
+<p><code>GET /tasks?expand=project</code></p>
+
+<p>This endpoint retrieves all tasks.</p>
+<h3 id='specific-task'>Specific Task</h3><pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/tasks/1
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated task"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/1"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific task.</p>
+
+<p><code>GET /tasks/&lt;ID&gt;</code></p>
+
+<p><code>GET /tasks/&lt;ID&gt;?expand=project</code></p>
+<h4 id='url-parameters-3'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the task to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='create-2'>Create</h3><pre class="highlight http tab-http"><code><span class="err">POST http://127.0.0.1:8080/tasks
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer 8fkqLShunkS-NfUKXDCgcDbhqufltSx_
+
+{"title":  "New task", "project_id":  1, "expires_at":  "2020-07-09 15:25:00"}
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New task"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-09 15:25:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/1"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>POST /tasks</code></p>
+<h4 id='parameters-4'>Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Title of the project</td>
+<td>+</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>int</td>
+<td>Project identifier</td>
+<td>+</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>string</td>
+<td>Deadline (Format Y-m-d H:i:s)</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id='update-2'>Update</h3><pre class="highlight http tab-http"><code><span class="err">PATCH http://127.0.0.1:8080/tasks/1
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer 8fkqLShunkS-NfUKXDCgcDbhqufltSx_
+
+{"title":  "Updates task", "project_id":  1, "expires_at":  null, "status_id":  2}
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated task"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:8080/tasks/1"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>PATCH /tasks/&lt;ID&gt;</code></p>
+<h4 id='url-parameters-4'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>int</td>
+<td>The ID of the project to update</td>
+</tr>
+</tbody></table>
+<h4 id='parameters-5'>Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Title of the project</td>
+<td>-</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>int</td>
+<td>Project identifier</td>
+<td>-</td>
+</tr>
+<tr>
+<td>status_id</td>
+<td>int</td>
+<td>Task status (1 - Active, 2 - Done)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>string/null</td>
+<td>Deadline (Format Y-m-d H:i:s)</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id='delete'>Delete</h3><pre class="highlight http tab-http"><code><span class="err">DELETE http://127.0.0.1:8080/tasks/1
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer 8fkqLShunkS-NfUKXDCgcDbhqufltSx_
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 204
+</code></pre>
+<p>This endpoint deletes a specific task.</p>
+
+<p><code>DELETE /tasks/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the task to delete</td>
+</tr>
+</tbody></table>
+<h2 id='profiles'>Profiles</h2><h3 id='attributes-3'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Identifier.</td>
+</tr>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>Unique username.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Unique email.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>int</td>
+<td>Status (1 - Unverified, 9 - Inactive, 10 - Active).</td>
+</tr>
+</tbody></table>
+<h3 id='current-profile'>Current Profile</h3><pre class="highlight http tab-http"><code><span class="err">GET http://127.0.0.1:8080/profile
+Content-Type: application/json
+Cache-Control: no-cache
+Authorization: Bearer fb58LD8WugZC8ob8-b6EshH8-Hq3SPGO
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>Code: 200
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET /profiles</code></p>
+
+<p>This endpoint retrieves profile data.</p>
+<h1 id='errors'>Errors</h1>
+<p>The Todo list API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request - Your request is invalid.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized - Your API key is wrong.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden - The requested for administrators only.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found - The resource could not be found.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed - You tried to access resource with an invalid method.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable - You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error - We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable - We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="http">http</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
